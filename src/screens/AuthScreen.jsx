@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 const AuthScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLogin, setIsLogin] = useState(true); // Hangi formun gösterileceğini kontrol eder
-  const selectedTheme = useSelector(state => state.theme.selectedTheme); // Seçili tema
-  const selectedLanguage = useSelector(state => state.language.selectedLanguage); // Seçili dil
+  const [isLogin, setIsLogin] = useState(true); 
+  const selectedTheme = useSelector(state => state.theme.selectedTheme); 
+  const selectedLanguage = useSelector(state => state.language.selectedLanguage); 
 
   const handleSubmit = async () => {
     try {

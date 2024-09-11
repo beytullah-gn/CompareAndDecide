@@ -13,10 +13,8 @@ const firebaseConfig = {
   appId: appId,
 };
 
-// Firebase uygulamasını başlatın
 const app = initializeApp(firebaseConfig);
 
-// Firebase Auth'u AsyncStorage ile başlatın
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });

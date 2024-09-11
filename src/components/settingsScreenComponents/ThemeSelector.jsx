@@ -3,30 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react
 import Palette1 from '../../assets/palettes/Palette1';
 import Palette2 from '../../assets/palettes/Palette2';
 
-// Temalar objesi
-const themes = {
-  Palette1,
-  Palette2,
-};
+const themes = { Palette1, Palette2 };
 
 const ThemeSelector = ({ selectedTheme, onThemeChange, selectedLanguage }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleThemeChange = (themeKey) => {
-    onThemeChange(themeKey);
-    setModalVisible(false);
-  };
-
   return (
     <View style={styles.container}>
-      {/* Tema Seçin Butonu (TouchableOpacity ile) */}
       <TouchableOpacity
         style={[styles.selectButton, { backgroundColor: selectedTheme.DarkColor }]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={[styles.selectButtonText, { color: selectedTheme.WhiteColor }]}>
-          {selectedLanguage.SelectTheme}
-        </Text>
+        <Text style={[styles.selectButtonText, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.SelectTheme}</Text>
       </TouchableOpacity>
 
       <Modal
@@ -37,6 +25,11 @@ const ThemeSelector = ({ selectedTheme, onThemeChange, selectedLanguage }) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
+              <View style={[{alignItems:'center',paddingBottom:12,justifyContent:'center'}]}>
+                <Text style={[{color:selectedTheme.DarkColor,fontSize:15,fontWeight:'bold'}]}>
+                  {selectedLanguage.SelectTheme}
+                </Text>
+              </View>
             <FlatList
               data={Object.keys(themes)}
               renderItem={({ item: themeKey }) => {
@@ -51,28 +44,13 @@ const ThemeSelector = ({ selectedTheme, onThemeChange, selectedLanguage }) => {
                         borderColor: selectedTheme.Name === theme.Name ? theme.DarkColor : '#bbb',
                       },
                     ]}
-                    onPress={() => handleThemeChange(themeKey)}
+                    onPress={() => {
+                      onThemeChange(themeKey);
+                      setModalVisible(false);
+                    }}
                   >
-                    <Text
-                      style={[
-                        styles.themeText,
-                        {
-                          color: selectedTheme.Name === theme.Name ? selectedTheme.WhiteColor : '#000',
-                        },
-                      ]}
-                    >
-                      {theme.Name}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.themeDescription,
-                        {
-                          color: selectedTheme.Name === theme.Name ? selectedTheme.OppositeColor : '#666',
-                        },
-                      ]}
-                    >
-                      {theme.Description}
-                    </Text>
+                    <Text style={[styles.themeText, { color: selectedTheme.WhiteColor }]}>{theme.Name}</Text>
+                    <Text style={[styles.themeDescription, { color:  selectedTheme.Name === theme.Name ? theme.OppositeColor : '#000', }]}>{theme.Description}</Text>
                   </TouchableOpacity>
                 );
               }}
@@ -99,10 +77,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   selectButton: {
-    padding: 10,
+    padding: 12,
     borderRadius: 5,
     alignItems: 'center',
-    width: 150, // Buton genişliği
+    width: '100%',
   },
   selectButtonText: {
     fontSize: 16,
@@ -118,38 +96,33 @@ const styles = StyleSheet.create({
     width: '90%',
     maxHeight: '80%',
     backgroundColor: 'white',
-    borderRadius: 20,
     padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 10,
+    borderRadius: 20,
   },
   themeOption: {
     padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderRadius: 10,
     marginVertical: 5,
-    alignItems: 'center',
   },
   themeText: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   themeDescription: {
     fontSize: 14,
-    color: '#666',
+    marginTop: 5,
   },
   closeButton: {
-    padding: 15,
-    borderRadius: 30,
     marginTop: 20,
-    backgroundColor: '#ddd',
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 5,
     alignItems: 'center',
   },
   closeButtonText: {
-    fontSize: 18,
-    color: '#000',
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

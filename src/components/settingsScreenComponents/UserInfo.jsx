@@ -9,7 +9,7 @@ const UserInfo = ({ user, onLoginPress, onLogoutPress, selectedTheme, selectedLa
           <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>UID: {user.uid}</Text>
           <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.Email}: {user.email}</Text>
           
-          {/* Çıkış Yap butonu */}
+        
           <TouchableOpacity
             style={[styles.button, { backgroundColor: selectedTheme.DarkColor }]}
             onPress={onLogoutPress}
@@ -21,7 +21,7 @@ const UserInfo = ({ user, onLoginPress, onLogoutPress, selectedTheme, selectedLa
         <>
           <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.NotLoggedIn}</Text>
 
-          {/* Giriş Yap butonu */}
+          
           <TouchableOpacity
             style={[styles.button, { backgroundColor: selectedTheme.DarkColor }]}
             onPress={onLoginPress}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
-    width: 150, // Buton genişliği
+    width: 150, 
   },
   buttonText: {
     fontSize: 16,

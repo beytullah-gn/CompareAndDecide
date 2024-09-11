@@ -19,16 +19,16 @@ export default CreateButton = () => {
 const styles = StyleSheet.create({
     buttonCard: {
         position: 'absolute',
-        bottom: 20,  // Ekranın altına yakın
-        right: 20,   // Ekranın sağına yakın
+        bottom: 20,  
+        right: 20,   
         justifyContent: 'center',
         alignItems: 'center',
         width: 60,
         height: 60,
         borderRadius: 30,
         padding: 5,
-        elevation: 5,  // Android gölge
-        shadowColor: '#000',  // iOS gölge
+        elevation: 5,  
+        shadowColor: '#000',  
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
