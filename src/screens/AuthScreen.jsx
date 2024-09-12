@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { registerUser, loginUser } from '../firebase/authFunctions';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch} from 'react-redux';
+import { loadLanguage } from '../redux/languageSlice';
+import { loadTheme } from '../redux/themeSlice';
+
 
 const AuthScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -9,11 +12,14 @@ const AuthScreen = ({ navigation }) => {
   const [isLogin, setIsLogin] = useState(true); 
   const selectedTheme = useSelector(state => state.theme.selectedTheme); 
   const selectedLanguage = useSelector(state => state.language.selectedLanguage); 
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     try {
       if (isLogin) {
         await loginUser(email, password);
+        dispatch(loadTheme());
+        dispatch(loadLanguage());
         navigation.navigate('Settings');
       } else {
         await registerUser(email, password);

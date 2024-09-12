@@ -1,5 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db, auth } from '../firebase/firebaseConfig'; 
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import tr from '../assets/languages/tr';
 import en from '../assets/languages/en';
 
@@ -19,21 +21,43 @@ const initialState: LanguageState = {
 };
 
 export const loadLanguage = createAsyncThunk('language/loadLanguage', async () => {
-  const lang = await AsyncStorage.getItem('selectedLanguage');
-  return lang ? languages[lang as keyof typeof languages] : languages.tr;
+  const user = auth.currentUser;
+
+  if (user) {
+    const langDocRef = doc(db, 'users', user.uid);
+    const langDoc = await getDoc(langDocRef);
+
+    if (langDoc.exists()) {
+      const lang = langDoc.data()?.languageKey;
+      return lang ? languages[lang as keyof typeof languages] : languages.tr;
+    }
+  } else {
+    const lang = await AsyncStorage.getItem('selectedLanguage');
+    return lang ? languages[lang as keyof typeof languages] : languages.tr;
+  }
+
+  return languages.tr;
 });
 
-export const saveLanguage = createAsyncThunk('language/saveLanguage', async (lang: string) => {
-  await AsyncStorage.setItem('selectedLanguage', lang);
-  return languages[lang as keyof typeof languages] || languages.tr;
+export const saveLanguage = createAsyncThunk('language/saveLanguage', async (langKey: keyof typeof languages) => {
+  const user = auth.currentUser;
+
+  if (user) {
+    const langDocRef = doc(db, 'users', user.uid);
+    await setDoc(langDocRef, { languageKey: langKey }, { merge: true });
+  } else {
+    await AsyncStorage.setItem('selectedLanguage', langKey);
+  }
+
+  return languages[langKey];
 });
 
 const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
-    setLanguage: (state, action) => {
-      state.selectedLanguage = languages[action.payload as keyof typeof languages] || languages.tr;
+    setLanguage: (state, action: PayloadAction<keyof typeof languages>) => {
+      state.selectedLanguage = languages[action.payload] || languages.tr;
     },
   },
   extraReducers: (builder) => {

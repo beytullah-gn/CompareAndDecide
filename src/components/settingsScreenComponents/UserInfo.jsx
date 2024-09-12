@@ -19,7 +19,7 @@ const UserInfo = ({ user, onLoginPress, onLogoutPress, selectedTheme, selectedLa
         </>
       ) : (
         <>
-          <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.NotLoggedIn}</Text>
+          <Text style={[styles.label, { color: selectedTheme.DarkColor }]}>{selectedLanguage.NotLoggedIn}</Text>
 
           
           <TouchableOpacity
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    padding: 10,
+    padding: 12,
     borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
-    width: 150, 
+    width: '100%', 
   },
   buttonText: {
     fontSize: 16,

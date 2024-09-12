@@ -25,29 +25,29 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, selectedTheme })
         onRequestClose={toggleModal}
       >
         <View style={styles.modalBackground}>
-          <View style={[styles.modalContainer,{backgroundColor: selectedTheme.SecondaryColor}]}>
-            <Text style={[styles.label, { color: selectedTheme.OppositeColor }]}>{selectedLanguage.SelectLanguage}</Text>
+          <View style={[styles.modalContainer, { backgroundColor: selectedTheme.WhiteColor }]}>
+            <Text style={[styles.label, { color: selectedTheme.DarkColor }]}>{selectedLanguage.SelectLanguage}</Text>
 
             {languageKeys.map(langKey => (
               <TouchableOpacity
                 key={langKey}
                 style={[
                   styles.languageButton,
-                  { backgroundColor: selectedLanguage === langKey ? selectedTheme.MainColor : '#ccc' }
+                  { backgroundColor: selectedTheme.MainColor}
                 ]}
                 onPress={() => {
                   onLanguageChange(langKey);
                   toggleModal();
                 }}
               >
-                <Text style={{ color: selectedLanguage === langKey ? selectedTheme.WhiteColor : '#000' }}>
+                <Text style={{ color: selectedTheme.WhiteColor , fontWeight:'bold',fontSize:16 }}>
                   {langKey === 'tr' ? 'Türkçe' : 'English'}
                 </Text>
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity style={[styles.closeButton,{backgroundColor: selectedTheme.DarkColor,}]} onPress={toggleModal}>
-              <Text style={[styles.closeButtonText,{color: selectedTheme.WhiteColor,}]}>{selectedLanguage.Close}</Text>
+            <TouchableOpacity style={[styles.closeButton, { backgroundColor: selectedTheme.DarkColor }]} onPress={toggleModal}>
+              <Text style={[styles.closeButtonText, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.Close}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -62,10 +62,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   openButton: {
-    padding: 12,
+    padding:12,
     borderRadius: 5,
     alignItems: 'center',
     width: '100%',
+    elevation: 3, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
   openButtonText: {
     fontSize: 16,
@@ -78,25 +83,47 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContainer: {
-    width: '80%',
-    padding: 20,
+    width: '90%',
+    padding: 30,
     borderRadius: 20,
     alignItems: 'center',
+    elevation: 5, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   languageButton: {
-    padding: 10,
-    borderRadius: 5,
+    padding: 15,
+    borderRadius: 10,
     marginVertical: 5,
     width: '100%',
     alignItems: 'center',
+    elevation: 2, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   closeButton: {
     marginTop: 20,
-    padding: 10,
-    borderRadius: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    elevation: 3, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
   closeButtonText: {
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

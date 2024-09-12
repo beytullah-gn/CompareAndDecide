@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db, auth } from '../firebase/firebaseConfig';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import Palette1 from '../assets/palettes/Palette1';
 import Palette2 from '../assets/palettes/Palette2';
 
@@ -19,12 +21,39 @@ const initialState: ThemeState = {
 };
 
 export const loadTheme = createAsyncThunk('theme/loadTheme', async () => {
-  const themeKey = await AsyncStorage.getItem('selectedTheme');
-  return themeKey ? themePalettes[themeKey as keyof typeof themePalettes] : Palette1;
+  const user = auth.currentUser;
+  
+  console.log('Current user:', user); 
+  
+  if (user) {
+
+    const themeDocRef = doc(db, 'users', user.uid);
+    const themeDoc = await getDoc(themeDocRef);
+
+    if (themeDoc.exists()) {
+      const themeKey = themeDoc.data()?.themeKey;
+      console.log('Firestore themeKey:', themeKey); 
+      return themeKey ? themePalettes[themeKey as keyof typeof themePalettes] : Palette1;
+    }
+  } else {
+    const themeKey = await AsyncStorage.getItem('selectedTheme');
+    console.log('AsyncStorage themeKey:', themeKey);  
+    return themeKey ? themePalettes[themeKey as keyof typeof themePalettes] : Palette1;
+  }
+
+  return Palette1;
 });
 
 export const saveTheme = createAsyncThunk('theme/saveTheme', async (themeKey: keyof typeof themePalettes) => {
-  await AsyncStorage.setItem('selectedTheme', themeKey);
+  const user = auth.currentUser;
+
+  if (user) {
+    const themeDocRef = doc(db, 'users', user.uid);
+    await setDoc(themeDocRef, { themeKey }, { merge: true });
+  } else {
+    await AsyncStorage.setItem('selectedTheme', themeKey);
+  }
+
   return themePalettes[themeKey];
 });
 
