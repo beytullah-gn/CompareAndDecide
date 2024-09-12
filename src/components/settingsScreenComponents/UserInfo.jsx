@@ -19,7 +19,7 @@ const UserInfo = ({ user, onLoginPress, onLogoutPress, selectedTheme, selectedLa
         </>
       ) : (
         <>
-          <Text style={[styles.label, { color: selectedTheme.DarkColor }]}>{selectedLanguage.NotLoggedIn}</Text>
+          <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.NotLoggedIn}</Text>
 
           
           <TouchableOpacity

@@ -1,31 +1,46 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import LinearGradient from 'react-native-linear-gradient'; // LinearGradient import edildi
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from "react-redux";
 
-export default CreateButton = () => {
+const CreateButton = () => {
     const selectedTheme = useSelector((state) => state.theme.selectedTheme);
 
     return (
         <TouchableOpacity 
-            style={[styles.buttonCard, { backgroundColor: selectedTheme.DarkColor }]} 
+            style={styles.buttonContainer} 
             activeOpacity={0.7}
         >
-            <Icon name={"add"} size={40} color={selectedTheme.SecondaryColor} />
+            <LinearGradient
+                colors={[selectedTheme.DarkColor, selectedTheme.LightColor]} // Geçiş renkleri
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[styles.buttonCard,{borderColor:selectedTheme.DarkColor}]}
+            >
+                <Icon name={"add"} size={40} color={selectedTheme.WhiteColor} />
+            </LinearGradient>
         </TouchableOpacity>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    buttonCard: {
+    buttonContainer: {
         position: 'absolute',
         bottom: 20,  
         right: 20,   
-        justifyContent: 'center',
-        alignItems: 'center',
         width: 60,
         height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonCard: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
         borderRadius: 30,
+        borderWidth:1,
         padding: 5,
         elevation: 5,  
         shadowColor: '#000',  
@@ -34,3 +49,5 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
     }
 });
+
+export default CreateButton;

@@ -30,7 +30,7 @@ function MainTabs() {
       return <Icon name={iconName} color={color} size={size} />;
     },
     tabBarActiveTintColor: selectedTheme.DarkColor,
-    tabBarInactiveTintColor: selectedTheme.MainColor,
+    tabBarInactiveTintColor: selectedTheme.DarkColor,
     headerShown: false
   });
 
@@ -56,13 +56,13 @@ function Navigation() {
 
   React.useEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(selectedTheme.SecondaryColor);
+      StatusBar.setBackgroundColor(selectedTheme.DarkColor);
     }
-  }, [selectedTheme.SecondaryColor]);
+  }, [selectedTheme.DarkColor]);
 
   return (
     <NavigationContainer>
-      <StatusBar barStyle="light-content" backgroundColor={selectedTheme.MainColor} />
+      <StatusBar barStyle="light-content" backgroundColor={selectedTheme.DarkColor} />
       <Stack.Navigator >
         <Stack.Screen name="MainTabs" component={MainTabs} options={{headerShown: false}} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{title: selectedLanguage.Login || "Login" }} />

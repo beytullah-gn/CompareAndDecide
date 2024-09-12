@@ -9,6 +9,7 @@ import { setUser } from '../redux/userSlice';
 import UserInfo from '../components/settingsScreenComponents/UserInfo'; 
 import ThemeSelector from '../components/settingsScreenComponents/ThemeSelector'; 
 import LanguageSelector from '../components/settingsScreenComponents/LanguageSelector'; 
+import LinearGradient from 'react-native-linear-gradient'; // LinearGradient import edildi
 
 const SettingsScreen = () => {
   const user = useSelector(state => state.user); 
@@ -31,59 +32,59 @@ const SettingsScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: selectedTheme.LightColor }]}>
-      <View style={styles.innerContainer}>
-        <View style={[styles.card,{backgroundColor: selectedTheme.LightColor,borderColor:selectedTheme.DarkColor,}]}>
-        <View>
-          <UserInfo 
-            user={user} 
-            onLoginPress={handleLoginPress}
-            onLogoutPress={handleLogout}
-            selectedTheme={selectedTheme}
-            selectedLanguage={selectedLanguage}
-          />
+    <LinearGradient
+      colors={[selectedTheme.DarkColor, selectedTheme.OppositeColor]} // Geçiş renkleri
+      style={styles.container} // Stil
+    >
+      <ScrollView contentContainerStyle={styles.innerContainer}>
+        <View style={[styles.card]}>
+          <View>
+            <UserInfo 
+              user={user} 
+              onLoginPress={handleLoginPress}
+              onLogoutPress={handleLogout}
+              selectedTheme={selectedTheme}
+              selectedLanguage={selectedLanguage}
+            />
+          </View>
+          <View>
+            <ThemeSelector 
+              selectedTheme={selectedTheme}
+              selectedLanguage={selectedLanguage}
+              onThemeChange={(themeKey) => dispatch(saveTheme(themeKey))}
+            />
+          </View>
+          <View>
+            <LanguageSelector 
+              selectedLanguage={selectedLanguage}
+              selectedTheme={selectedTheme}
+              onLanguageChange={(langKey) => dispatch(saveLanguage(langKey))}
+            />
+          </View>
         </View>
-        <View>
-          <ThemeSelector 
-            selectedTheme={selectedTheme}
-            selectedLanguage={selectedLanguage}
-            onThemeChange={(themeKey) => dispatch(saveTheme(themeKey))}
-          />
-        </View>
-        <View>
-          <LanguageSelector 
-            selectedLanguage={selectedLanguage}
-            selectedTheme={selectedTheme}
-            onLanguageChange={(langKey) => dispatch(saveLanguage(langKey))}
-          />
-        </View>
-        </View>
-        
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    justifyContent:'center'
   },
   innerContainer: {
     flex: 1,
     alignItems: 'center',
+    padding: 16,
+    justifyContent:'center'
   },
   card: {
     width: '90%',
     borderRadius: 15,
     padding: 20,
     marginVertical: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
-    borderWidth:2
+
+    borderWidth: 2,
   },
 });
 
