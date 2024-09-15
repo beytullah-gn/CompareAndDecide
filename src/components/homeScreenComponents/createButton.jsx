@@ -1,24 +1,31 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import LinearGradient from 'react-native-linear-gradient'; // LinearGradient import edildi
+import { StyleSheet, TouchableOpacity } from "react-native";
+import LinearGradient from 'react-native-linear-gradient'; 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from "react-redux";
+import { useNavigation } from '@react-navigation/native'; 
 
 const CreateButton = () => {
     const selectedTheme = useSelector((state) => state.theme.selectedTheme);
+    const navigation = useNavigation(); 
+
+    const handlePress = () => {
+        navigation.navigate('CreateComprasion'); 
+    };
 
     return (
         <TouchableOpacity 
             style={styles.buttonContainer} 
             activeOpacity={0.7}
+            onPress={handlePress} 
         >
             <LinearGradient
-                colors={[selectedTheme.DarkColor, selectedTheme.LightColor]} // Geçiş renkleri
+                colors={[selectedTheme.DarkColor, selectedTheme.LightColor]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={[styles.buttonCard,{borderColor:selectedTheme.DarkColor}]}
             >
-                <Icon name={"add"} size={40} color={selectedTheme.WhiteColor} />
+                <Icon name={"add"} size={40} color={selectedTheme.OppositeColor} />
             </LinearGradient>
         </TouchableOpacity>
     );
@@ -40,7 +47,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 30,
-        borderWidth:1,
+        borderWidth: 1,
         padding: 5,
         elevation: 5,  
         shadowColor: '#000',  

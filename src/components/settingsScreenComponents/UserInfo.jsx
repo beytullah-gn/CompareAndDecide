@@ -6,7 +6,7 @@ const UserInfo = ({ user, onLoginPress, onLogoutPress, selectedTheme, selectedLa
     <View style={styles.container}>
       {user && user.uid ? (
         <>
-          <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>UID: {user.uid}</Text>
+          <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>UID: {user.userId}</Text>
           <Text style={[styles.label, { color: selectedTheme.WhiteColor }]}>{selectedLanguage.Email}: {user.email}</Text>
           
         
