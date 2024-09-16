@@ -66,10 +66,10 @@ function Navigation() {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor={selectedTheme.DarkColor} />
-      <Stack.Navigator >
+      <Stack.Navigator  screenOptions={{headerStyle:{backgroundColor:selectedTheme.DarkColor},headerTintColor:selectedTheme.LightColor} }>
         <Stack.Screen name="MainTabs" component={MainTabs} options={{headerShown: false}} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{title: selectedLanguage.Login || "Login" }} />
-        <Stack.Screen name="CreateComprasion" component={CreateComparison} options={{title: selectedLanguage.Login || "Login" }} />
+        <Stack.Screen name="CreateComprasion" component={CreateComparison} options={{title: selectedLanguage.CreateComparison || "Create Comprasion" }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

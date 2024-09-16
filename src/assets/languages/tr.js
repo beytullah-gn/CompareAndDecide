@@ -15,5 +15,14 @@ export default{
     RegisterError:"Kayıt sırasında bir hata oluştu.",
     LoginError:"Giriş sırasında bir hata oluştu.",
     Error:"Hata",
+    CreateComparison:"Kıyaslama Oluştur",
+    CreateHeaderError:'Kıyaslama başlığını girmelisiniz.',
+    ItemNameError:"Tüm öğe isimlerini girmelisiniz.",
+    ComprasionHeader:"Kıyaslama Başlığı",
+    Item:"Öğe",
+    AddNewItem:"Yeni Öğe Ekle",
+    Success:"Başarılı",
+    ComparisonCreated:"Kıyaslama Oluşturuldu"
+
 
 }

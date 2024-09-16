@@ -37,7 +37,7 @@ const SettingsScreen = () => {
       style={styles.container} // Stil
     >
       <ScrollView contentContainerStyle={styles.innerContainer}>
-        <View style={[styles.card]}>
+        <View style={[styles.card,{borderColor:selectedTheme.DarkColor}]}>
           <View>
             <UserInfo 
               user={user} 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   card: {
-    width: '90%',
+    width: '100%',
     borderRadius: 15,
     padding: 20,
     marginVertical: 10,
