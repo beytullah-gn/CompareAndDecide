@@ -10,7 +10,7 @@ const CreateButton = () => {
     const navigation = useNavigation(); 
 
     const handlePress = () => {
-        navigation.navigate('CreateComprasion'); 
+        navigation.navigate('createComparison'); 
     };
 
     return (

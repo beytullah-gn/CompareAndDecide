@@ -3,7 +3,7 @@ import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, ScrollView 
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
-import { saveComparison,saveComparisonItems } from '../services/createComprasion';
+import { saveComparison,saveComparisonItems } from '../services/createComparison';
 
 
 const CreateComparison = ({ navigation }) => {
@@ -11,6 +11,7 @@ const CreateComparison = ({ navigation }) => {
     const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
     const [comparisonTitle, setComparisonTitle] = useState('');
     const [items, setItems] = useState([{ name: '' }]);
+    const user = useSelector((state) => state.user);
 
     const handleItemChange = (text, index) => {
         const newItems = [...items];
@@ -40,8 +41,8 @@ const CreateComparison = ({ navigation }) => {
         }
     
         try {
-            const newComparisonId = await saveComparison(comparisonTitle);
-            await saveComparisonItems(items, newComparisonId);
+            const newComparisonId = await saveComparison(comparisonTitle,user);
+            await saveComparisonItems(items, newComparisonId,user);
     
             Alert.alert(selectedLanguage.Success, selectedLanguage.ComparisonCreated);
             navigation.navigate('Home');
