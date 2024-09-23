@@ -34,13 +34,13 @@ function HomeScreen() {
       colors={[selectedTheme.DarkColor, selectedTheme.OppositeColor]}
       style={styles.container}
     >
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} selectedLanguage={selectedLanguage} />
       {loading ? (
-        <NoResults message="Loading..." />
+        <NoResults message={selectedLanguage.Loading} />
       ) : filteredComparisons.length > 0 ? (
         <ComparisonList comparisons={filteredComparisons} theme={selectedTheme} />
       ) : (
-        <NoResults />
+        <NoResults selectedLanguage={selectedLanguage} />
       )}
       <CreateButton />
     </LinearGradient>

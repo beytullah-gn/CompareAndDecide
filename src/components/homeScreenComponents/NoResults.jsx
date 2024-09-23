@@ -1,11 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const NoResults = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Kıyaslama bulunamadı.</Text>
-  </View>
-);
+const NoResults = () => {
+  // useSelector'u bileşenin içinde kullanıyoruz
+  const selectedLanguage = useSelector((state) => state.language.selectedLanguage);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{selectedLanguage.NoComparisonFound}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

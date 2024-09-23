@@ -22,7 +22,10 @@ export default{
     Item:"Öğe",
     AddNewItem:"Yeni Öğe Ekle",
     Success:"Başarılı",
-    ComparisonCreated:"Kıyaslama Oluşturuldu"
+    ComparisonCreated:"Kıyaslama Oluşturuldu",
+    NoComparisonFound:"Kıyaslama bulunamadı.",
+    SearchComparison:"Kıyaslama ara...",
+    Loading:'Yükleniyor...'
 
 
 }

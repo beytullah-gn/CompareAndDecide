@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { StatusBar, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CreateComparison from '../screens/CreateComparisonScreen';
+import SelectedComparison from '../screens/SelectedComparison';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,6 +71,7 @@ function Navigation() {
         <Stack.Screen name="MainTabs" component={MainTabs} options={{headerShown: false}} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{title: selectedLanguage.Login || "Login" }} />
         <Stack.Screen name="createComparison" component={CreateComparison} options={{title: selectedLanguage.CreateComparison || "Create Comprasion" }} />
+        <Stack.Screen name='SelectedComparison' component={SelectedComparison} />
       </Stack.Navigator>
     </NavigationContainer>
   );

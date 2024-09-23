@@ -22,7 +22,10 @@ export default{
     Item:"Item",
     AddNewItem:"Add New Item",
     Success:"Success",
-    ComparisonCreated:"Comparison Created"
+    ComparisonCreated:"Comparison Created",
+    NoComparisonFound:"No comparison found.",
+    SearchComparison:"Search comparison...",
+    Loading:'Loading...'
 
     
 }

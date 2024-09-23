@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,13 @@ import {
   Dimensions,
   BackHandler,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native'; // Navigasyonu ekliyoruz
 
-const ComparisonList = ({comparisons, theme}) => {
+const ComparisonList = ({ comparisons, theme }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectionMode, setSelectionMode] = useState(false);
+  const navigation = useNavigation(); // Navigation hook'u ekliyoruz
 
   useEffect(() => {
     const backAction = () => {
@@ -40,6 +43,9 @@ const ComparisonList = ({comparisons, theme}) => {
   const handlePress = (item) => {
     if (selectionMode) {
       toggleSelection(item);
+    } else {
+      // Seçilen kıyaslamayı SelectedComparison sayfasına yönlendiriyoruz
+      navigation.navigate('SelectedComparison', { comparisonId: item.Id});
     }
   };
 
@@ -67,16 +73,16 @@ const ComparisonList = ({comparisons, theme}) => {
     setSelectionMode(false);
   };
 
-  const renderComparisonItem = ({item}) => {
+  const renderComparisonItem = ({ item }) => {
     const isSelected = selectedItems.includes(item.id);
 
     return (
       <TouchableOpacity
         style={[styles.item, isSelected && styles.selectedItem(theme)]}
         onLongPress={() => handleLongPress(item)}
-        onPress={() => handlePress(item)}
+        onPress={() => handlePress(item)} // Kıyaslama seçildiğinde yönlendirme burada olacak
       >
-        <Text style={styles.title(theme)}>{item.Title}</Text>
+        <Text style={styles.title(theme)}>{item.Id}</Text>
       </TouchableOpacity>
     );
   };
@@ -85,21 +91,21 @@ const ComparisonList = ({comparisons, theme}) => {
     <View style={styles.wrapper}>
       {selectionMode && (
         <View style={styles.selectionBar(theme)}>
-          <TouchableOpacity onPress={selectAll} style={styles.selectionButton(theme)}>
-            <Text style={styles.buttonText(theme)}>Tümünü Seç</Text>
+          <TouchableOpacity onPress={cancelSelection} style={styles.selectionButton(theme)}>
+            <Icon name={'keyboard-backspace'} size={30} color={theme.WhiteColor} />
           </TouchableOpacity>
           <TouchableOpacity onPress={clearSelections} style={styles.selectionButton(theme)}>
-            <Text style={styles.buttonText(theme)}>Tüm Seçimleri Kaldır</Text>
+            <Icon name={'selection-ellipse-remove'} size={30} color={theme.WhiteColor} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={cancelSelection} style={styles.selectionButton(theme)}>
-            <Text style={styles.buttonText(theme)}>Seçimi İptal Et</Text>
+          <TouchableOpacity onPress={selectAll} style={styles.selectionButton(theme)}>
+            <Icon name={'selection-ellipse'} size={30} color={theme.WhiteColor} />
           </TouchableOpacity>
         </View>
       )}
       <FlatList
         data={comparisons}
         renderItem={renderComparisonItem}
-        keyExtractor={item => item.id || item.Id.toString()}
+        keyExtractor={item => item.id}
         numColumns={2}
         columnWrapperStyle={styles.row}
         contentContainerStyle={[
@@ -111,14 +117,13 @@ const ComparisonList = ({comparisons, theme}) => {
   );
 };
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
-  container: (theme) => ({
-  }),
+  container: (theme) => ({}),
   containerWithSelectionBar: (theme) => ({
     paddingTop: 60,
   }),
@@ -158,10 +163,10 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 1,
     padding: 10,
-    width:'100%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor:theme.MainColor
+    backgroundColor: theme.MainColor
   }),
   selectionButton: (theme) => ({
     padding: 10,
