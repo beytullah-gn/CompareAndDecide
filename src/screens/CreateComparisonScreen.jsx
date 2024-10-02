@@ -3,7 +3,7 @@ import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, ScrollView 
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
-import { saveComparison,saveComparisonItems } from '../services/createComparison';
+import { saveComparison, saveComparisonItems } from '../services/createComparison';
 
 
 const CreateComparison = ({ navigation }) => {
@@ -33,24 +33,24 @@ const CreateComparison = ({ navigation }) => {
             Alert.alert(selectedLanguage.Error, selectedLanguage.CreateHeaderError);
             return;
         }
-    
+
         const emptyItems = items.filter(item => item.name.trim() === '');
         if (emptyItems.length > 0) {
             Alert.alert(selectedLanguage.Error, selectedLanguage.ItemNameError);
             return;
         }
-    
+
         try {
-            const newComparisonId = await saveComparison(comparisonTitle,user);
-            await saveComparisonItems(items, newComparisonId,user);
-    
+            const newComparisonId = await saveComparison(comparisonTitle, user);
+            await saveComparisonItems(items, newComparisonId, user);
+
             Alert.alert(selectedLanguage.Success, selectedLanguage.ComparisonCreated);
             navigation.navigate('Home');
         } catch (error) {
             Alert.alert(selectedLanguage.Error, error.message);
         }
     };
-    
+
 
     return (
         <LinearGradient
@@ -62,7 +62,7 @@ const CreateComparison = ({ navigation }) => {
                     colors={[selectedTheme.LightColor, selectedTheme.OppositeColor]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
-                    style={[styles.card,{borderWidth:0.5}]}
+                    style={[styles.card, { borderWidth: 0.5 }]}
                 >
                     <Text style={[styles.title, { color: selectedTheme.MainColor }]}>
                         {selectedLanguage.CreateComparison}
@@ -92,13 +92,16 @@ const CreateComparison = ({ navigation }) => {
                             )}
                         </View>
                     ))}
+                    <View>
+                        <TouchableOpacity style={[styles.addButton, { backgroundColor: selectedTheme.SecondaryColor , borderColor:selectedTheme.DarkColor}]} onPress={handleAddItem}>
+                            <Icon name={'add'} size={30} color={selectedTheme.DarkColor}/>
+                        </TouchableOpacity>
+                    </View>
+     
+
                 </LinearGradient>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, { backgroundColor: selectedTheme.DarkColor }]} onPress={handleAddItem}>
-                        <Text style={styles.buttonText}>{selectedLanguage.AddNewItem}</Text>
-                    </TouchableOpacity>
-
                     <TouchableOpacity style={[styles.button, { backgroundColor: selectedTheme.DarkColor }]} onPress={handleCreate}>
                         <Text style={styles.buttonText}>{selectedLanguage.CreateComparison}</Text>
                     </TouchableOpacity>
@@ -120,8 +123,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 20,
         marginBottom: 20,
-        elevation: 3, 
-        shadowColor: '#000', 
+        elevation: 3,
+        shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 5,
         shadowOffset: { width: 0, height: 2 },
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         alignItems: 'center',
         marginTop: 10,
-        elevation: 3, 
+        elevation: 3,
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 5,
@@ -166,6 +169,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 16,
+    },
+    addButton:{
+        justifyContent:'center',
+        alignItems:'center',
+        borderWidth:1,
+        borderRadius:5,
+        height:35
+
     },
 });
 

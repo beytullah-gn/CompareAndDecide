@@ -19,8 +19,10 @@ const SearchBar = ({ searchQuery, setSearchQuery , selectedLanguage }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop:20,
     marginBottom: 20,
-    width: width - 10,
+    margin:10,
+    width: width - 20,
     paddingHorizontal: 5,
     borderColor: '#ccc',
     borderWidth: 1,
